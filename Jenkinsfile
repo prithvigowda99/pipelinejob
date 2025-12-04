@@ -12,6 +12,7 @@ pipeline{
   stage ('Deploy') {
     
     steps {
+      git branch: 'main', credentialsId: 'pipelineJobGit', url: 'https://github.com/prithvigowda99/jenkins.git'
       echo "this is deploy stage"
     }
   }
