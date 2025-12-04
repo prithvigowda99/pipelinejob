@@ -19,6 +19,10 @@ pipeline{
       stage ('test') {
       
         steps {
+          sh '''
+               pwd
+               ls -lrt
+            '''
           echo "this is test stage"
         }
       }
