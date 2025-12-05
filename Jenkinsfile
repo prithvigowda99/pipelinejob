@@ -26,6 +26,15 @@ pipeline{
           echo "this is test stage"
         }
       }
-      
+stage ('parallel execution' ){
+  parallel{
+  stage ('chrome'){
+echo "executing in chrome browser"
+  }
+    stage ('firefox'){
+      echo "executing in firefox browser"
+    }
+}
+    }      
     }  
 }
