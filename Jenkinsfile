@@ -23,15 +23,15 @@ pipeline {
       }
     }
     stage('Parallel Execution') {
-      steps {                    // ✅ REQUIRED: steps wrapper
-        parallel {
-          stage('Chrome') {
-            steps {              // ✅ REQUIRED: each parallel stage needs steps
+      steps {
+        script {
+          parallel chromeStep: {
+            stage('Chrome') {
               echo "executing in chrome browser"
             }
-          }
-          stage('Firefox') {
-            steps {              // ✅ REQUIRED: each parallel stage needs steps
+          },
+          firefoxStep: {
+            stage('Firefox') {
               echo "executing in firefox browser"
             }
           }
