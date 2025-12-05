@@ -27,6 +27,7 @@ pipeline{
         }
       }
 stage ('parallel execution' ){
+  steps{
   parallel{
   stage ('chrome'){
 echo "executing in chrome browser"
@@ -37,4 +38,5 @@ echo "executing in chrome browser"
 }
     }      
     }  
+}
 }
