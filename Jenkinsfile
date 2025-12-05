@@ -1,42 +1,42 @@
-pipeline{
+pipeline {
   agent any
-    stages {
-      stage ('Build') {
-        
-        steps {
-          git branch: 'main', credentialsId: 'pipelineJobGit', url: 'https://github.com/prithvigowda99/pipelinejob.git'
-          echo "this is build stage"
+  stages {
+    stage('Build') {
+      steps {
+        git branch: 'main', credentialsId: 'pipelineJobGit', url: 'https://github.com/prithvigowda99/pipelinejob.git'
+        echo "this is build stage"
+      }
+    }
+    stage('Deploy') {
+      steps {
+        git branch: 'main', credentialsId: 'pipelineJobGit', url: 'https://github.com/prithvigowda99/jenkins.git'
+        echo "this is deploy stage"
+      }
+    }
+    stage('Test') {
+      steps {
+        sh '''
+          pwd
+          ls -lrt
+        '''
+        echo "this is test stage"
+      }
+    }
+    stage('Parallel Execution') {
+      steps {
+        parallel {
+          stage('Chrome') {
+            steps {
+              echo "executing in chrome browser"
+            }
+          }
+          stage('Firefox') {
+            steps {
+              echo "executing in firefox browser"
+            }
+          }
         }
       }
-    
-  stage ('Deploy') {
-    
-    steps {
-      git branch: 'main', credentialsId: 'pipelineJobGit', url: 'https://github.com/prithvigowda99/jenkins.git'
-      echo "this is deploy stage"
     }
   }
-      stage ('test') {
-      
-        steps {
-          sh '''
-               pwd
-               ls -lrt
-            '''
-          echo "this is test stage"
-        }
-      }
-stage ('parallel execution' ){
-  steps{
-  parallel{
-  stage ('chrome'){
-echo "executing in chrome browser"
-  }
-    stage ('firefox'){
-      echo "executing in firefox browser"
-    }
-}
-    }      
-    }  
-}
 }
